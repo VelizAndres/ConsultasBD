@@ -9,8 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mysql": "^2.18.1",
+    "net": "^1.0.2",
     "next": "13.4.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
+  },
+  "browser": {
+    "tls": false,
+    "net": false,
+    "fs": false
   }
+
 }
