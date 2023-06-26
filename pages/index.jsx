@@ -3,26 +3,53 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useRef, useState } from 'react'
-
+import { Chart } from 'chart.js'
 export default  function Home() {
-  const [Datos, setData] = useState([])
-
+  const [Cambio, setCambio] = useState(false)
+  const Valor = useRef([])
+  console.log(Valor.current)
   useEffect( ()=> {
     async function fetchData() {
-      console.log("Buscando...")
       const rest = await fetch("http://localhost:3000/api/hello")
       const data = await rest.json()
-      console.log(data)
-      setData(data)
+      Valor.current = data.data
     }
-    fetchData();    
+    const interval = setInterval(() => {
+      fetchData()
+      setCambio(Cambio => !Cambio)
+      console.log(Valor.current)
+    }, 60000);
+    return () => clearInterval(interval);
 
   }, [])
 
-//   const Listar = Data_ref.current.list.map((item) =>
-//   <p key={item} value={item}>{item}</p>
-// );
+  const Listar = Valor.current.map((item) =>
+  <p key={item.Id} value={item}>{item.Id}</p>
+);
 
+ const graficar = () => {
+  var dataFirst = {
+    label: "Car A - Speed (mph)",
+    data: [0, 59, 75, 20, 20, 55, 40],
+    lineTension: 0.3,
+    // Set More Options 
+  };
+    
+  var dataSecond = {
+    label: "Car B - Speed (mph)",
+    data: [20, 15, 60, 60, 65, 30, 70],
+    // Set More Options 
+  };
+    
+  var speedData = {
+    labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
+    datasets: [dataFirst, dataSecond]
+  };
+  var lineChart = new Chart(speedChart, {
+    type: 'line',
+    data: speedData
+  });
+ }
  return (
     <>
       <Head>
@@ -31,11 +58,13 @@ export default  function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main}`}>
-        {/* <div className={styles.description}>
-          {Data_ref === [] ? <div></div> : Listar}
-          </div> */}
-      </main>
+        
+      <div>
+        <h1>Graficas</h1>{
+          Valor.current.length === 0 ? <div>Hola</div> : Listar}
+         <canvas id="speedChart" width="600" height="400"></canvas>
+         {graficar()}
+         </div>
     </>
   )
 }

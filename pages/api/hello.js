@@ -7,13 +7,12 @@ export default async function Pokemon(req, res) {
     if (req.method === "GET")
     {
       const data = await getPokemons();
-      console.log("Datos",data);
       res.status(200).json({data})
     }
   }
   catch (error)
   {
-    console.log("Hello", error)
+    console.log("Error", error)
     res.status(500).json({error})
   }  
 }

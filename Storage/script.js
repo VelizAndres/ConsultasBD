@@ -1,4 +1,3 @@
-import { resolve } from "styled-jsx/css";
 import { dataBase } from ".";
 
 export const getPokemons = async () => {
