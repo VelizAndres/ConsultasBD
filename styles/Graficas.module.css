@@ -1,0 +1,33 @@
+
+
+.Contenedor{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    min-width: 100vw;
+}
+
+
+
+.grafica{
+    min-height: 300px;
+    min-width: 800px;
+    max-height: 500px;
+    margin: 15px;
+    justify-content: center;
+}
+
+.tarjeta
+{
+    border: 3px solid red;
+    width: 200px;
+    padding: 5px;
+    justify-content: center;
+    display: flex;
+    margin: 50px;
+    border-radius: 15px;
+}
+
+.text{
+    font-size: 32px;
+}
