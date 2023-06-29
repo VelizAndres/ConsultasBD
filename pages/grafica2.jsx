@@ -11,7 +11,7 @@ export default  function Home() {
 
   useEffect( ()=> {
     async function fetchData() {
-      const rest = await fetch("http://localhost:3000/api/hello")
+      const rest = await fetch("http://18.191.57.189:3000/api/bd2")
       const data = await rest.json()
       Valor.current = data.data
     }
